@@ -38,8 +38,10 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # install cling
-RUN curl -L https://root.cern/download/cling/cling-2021-10-15-linux.tar.bz2 | tar xj -C /opt \
-    && ln -s /opt/cling/bin/{cling,cling++} /usr/local/bin/
+RUN curl -fsSL https://root.cern/download/cling/cling_2020-11-01_ROOT-debian10-i386.tar.bz2 \
+        | tar xj -C /opt \
+    && ln -s /opt/cling/bin/cling /usr/local/bin/ \
+    && ln -s /opt/cling/bin/cling++ /usr/local/bin/
 
 
 # create user with assumed permissions for vs code use
