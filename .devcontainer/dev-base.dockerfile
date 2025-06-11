@@ -40,8 +40,10 @@ RUN apt-get update \
 # install cling
 RUN curl -fsSL https://root.cern/download/cling/cling_2020-11-01_ROOT-debian10-i386.tar.bz2 \
         | tar xj -C /opt \
+    && mv /opt/cling_2020-11-01_ROOT-debian10-i386 /opt/cling
     && ln -s /opt/cling/bin/cling /usr/local/bin/ \
     && ln -s /opt/cling/bin/cling++ /usr/local/bin/
+ENV CMAKE_PREFIX_PATH=/opt/cling/lib/cmake${CMAKE_PREFIX_PATH:+:}$CMAKE_PREFIX_PATH
 
 
 # create user with assumed permissions for vs code use
