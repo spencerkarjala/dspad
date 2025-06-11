@@ -1,0 +1,21 @@
+{
+    "name": "dspad dev environment",
+
+    "build": {
+        "dockerfile": "dev.dockerfile",
+        "context": "."
+    },
+
+    "remoteUser": "vscode",
+
+    "workspaceFolder": "/workspace",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+            },
+        }
+    },
+}
