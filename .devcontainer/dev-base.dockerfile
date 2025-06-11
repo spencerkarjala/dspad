@@ -4,7 +4,6 @@ RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --fix-missing \
 
         # misc housekeeping/utilities
-        age \
         bash \
         ca-certificates \
         curl \
@@ -15,17 +14,16 @@ RUN apt-get update \
         # dev dependencies
         build-essential \
         cmake \
-        clang-13 \
-        llvm-13-dev \
         libclang-13-dev \
         libglew-dev \
         libglfw3-dev \
-        libx11-dev \
-        libxrandr-dev \
-        libxcursor-dev \
-        libxinerama-dev \
-        libxi-dev \
         libglm-dev \
+        libx11-dev \
+        libxcursor-dev \
+        libxi-dev \
+        libxinerama-dev \
+        libxrandr-dev \
+        llvm-13-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # install cling
