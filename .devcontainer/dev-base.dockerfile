@@ -1,16 +1,27 @@
 FROM debian:bullseye-20241111-slim
 
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --fix-missing \
+    && apt-get install -y ca-certificates
 
+# 1) Switch all repos to HTTPS and add retry logic
+RUN sed -i \
+        -e 's|http://deb.debian.org/|https://deb.debian.org/|g' \
+        -e 's|http://security.debian.org/|https://security.debian.org/|g' \
+        /etc/apt/sources.list \
+    && printf '%s\n' \
+        'Acquire::Retries "5";' \
+        'Acquire::http { Timeout "60"; };' \
+        'Acquire::https { Timeout "60"; };' \
+        > /etc/apt/apt.conf.d/80-retries
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --fix-missing \
         # misc housekeeping/utilities
         bash \
-        ca-certificates \
         curl \
         git \
         sudo \
         xz-utils \
-
         # dev dependencies
         build-essential \
         cmake \
